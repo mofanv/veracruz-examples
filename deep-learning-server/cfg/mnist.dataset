@@ -1,8 +1,8 @@
 classes=10
-train  = data/mnist/mnist.train.list
-valid  = data/mnist/mnist.valid.list
-test  = data/mnist/mnist.test.list
+train  = mnist.train.list
+valid  = mnist.valid.list
+test  = mnist.test.list
 backup = model
-labels = data/mnist/mnist.labels.list
-names  = data/mnist/mnist.names.list
+labels = mnist.labels.list
+names  = mnist.names.list
 top = 5
