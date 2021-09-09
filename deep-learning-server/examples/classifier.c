@@ -325,18 +325,28 @@ void predict_classifier(char *datacfg, char *cfgfile, char *weightfile, char *fi
             hierarchy_predictions(predictions, net->outputs, net->hierarchy, 1, 1);
         top_k(predictions, net->outputs, top, indexes);
         fprintf(stderr, "%s: Predicted.\n", input);
+
+        // TODO: for `output` in veracruz runtime
+        FILE *file_output = fopen("output", "w");
+        if (file_output == NULL)
+        {
+            printf("Error opening output file!\n");
+            exit(1);
+        }
+
+        // print the prediction results
         for (i = 0; i < top; ++i)
         {
             int index = indexes[i];
             printf("%5.2f%%: %s\n", predictions[index] * 100, names[index]);
+            fprintf(file_output, "%5.2f%%: %s\n", predictions[index] * 100, names[index]);
         }
         if (r.data != im.data)
             free_image(r);
         free_image(im);
+        
+        fclose(file_output);
     }
-
-    // TODO: for `output` in veracruz runtime
-    save_weights(net, "output");
 }
 
 // this function is the entry to run the classifier in terms of both training
